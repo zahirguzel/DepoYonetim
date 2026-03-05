@@ -1,9 +1,16 @@
-using System.Runtime.Versioning; // 1. Bu kütüphane þart!
+
+        cameraView.Options = new BarcodeReaderOptions
+        {
+            Formats = BarcodeFormats.All,
+            AutoRotate = true,
+            Multiple = false
+        };
+using System.Runtime.Versioning; // 1. Bu kÃ¼tÃ¼phane Ã¾art!
 using ZXing.Net.Maui;
 
 namespace Tufanlar.UI.Views;
 
-// Sýnýf seviyesinde bu sayfanýn Android ve Windows uyumlu olduðunu ilan ediyoruz
+// SÃ½nÃ½f seviyesinde bu sayfanÃ½n Android ve Windows uyumlu olduÃ°unu ilan ediyoruz
 [SupportedOSPlatform("android")]
 [SupportedOSPlatform("windows")]
 [SupportedOSPlatform("ios")]
@@ -20,24 +27,24 @@ public partial class BarkodTaraPage : ContentPage
 
     private async void CameraView_BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
-        // 25. satýr ve civarý: Gereksiz iþlemci yükünü ve çakýþmayý önleme
+        // 25. satÃ½r ve civarÃ½: Gereksiz iÃ¾lemci yÃ¼kÃ¼nÃ¼ ve Ã§akÃ½Ã¾mayÃ½ Ã¶nleme
         if (_isProcessing) return;
 
-        // 30-31. satýr: Barkod sonuçlarýný güvenli bir þekilde alma
+        // 30-31. satÃ½r: Barkod sonuÃ§larÃ½nÃ½ gÃ¼venli bir Ã¾ekilde alma
         var firstBarcode = e.Results?.FirstOrDefault();
         if (firstBarcode == null) return;
 
         _isProcessing = true;
 
-        // 34. satýr: Kamerayý ana arayüz kanalýnda (MainThread) güvenle durdurma
+        // 34. satÃ½r: KamerayÃ½ ana arayÃ¼z kanalÃ½nda (MainThread) gÃ¼venle durdurma
         MainThread.BeginInvokeOnMainThread(() => {
             cameraView.IsDetecting = false;
         });
 
-        // 36. satýr: Okunan deðeri deðiþkene atama
+        // 36. satÃ½r: Okunan deÃ°eri deÃ°iÃ¾kene atama
         string barkodDegeri = firstBarcode.Value;
 
-        // 39-45. satýr: Sayfayý kapatýp veriyi geri gönderme
+        // 39-45. satÃ½r: SayfayÃ½ kapatÃ½p veriyi geri gÃ¶nderme
         await MainThread.InvokeOnMainThreadAsync(async () =>
         {
             _onBarcodeDetected?.Invoke(barkodDegeri);
