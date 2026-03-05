@@ -87,6 +87,12 @@ public partial class UrunEkleViewModel(ApiService apiService, UrunDto? urun = nu
                 Urun.Barkod = okunanKod;
                 OnPropertyChanged(nameof(Urun));
             }));
+            return;
+        }
+
+        if (Application.Current?.MainPage != null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Kamera İzni", "QR/Barkod okutmak için kamera izni vermelisiniz.", "Tamam");
         }
     });
 

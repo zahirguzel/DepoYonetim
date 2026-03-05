@@ -1,11 +1,13 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.Maui.Storage;
 using Tufanlar.UI.Dtos;
 
 namespace Tufanlar.UI.Services;
 
 public class ApiService
 {
+    private const string ApiBaseUrlPreferenceKey = "api_base_url";
     private readonly HttpClient _httpClient;
 
     // JSON Ayarları
@@ -26,22 +28,28 @@ public class ApiService
 
         // 2. BAĞLANTI AYARLARI (KRİTİK BÖLÜM)
 
-        // Senin CMD'den bulduğun IP adresi:
-        string ipAdresim = "192.168.1.131";
+        string kayitliBaseUrl = Preferences.Default.Get(ApiBaseUrlPreferenceKey, string.Empty);
 
-        // API'nin HTTP portu (launchSettings.json dosyasında "http" altında yazar, genelde 5000, 5001 vs.)
-        // HTTPS (7274) yerine HTTP (5000) kullanıyoruz ki telefonda sertifika hatası çıkmasın.
-        string androidPort = "5000";
-        string windowsPort = "7274"; // Windows localhost'ta https sever
-
-        string baseUrl = DeviceInfo.Platform == DevicePlatform.Android
-            ? $"http://{ipAdresim}:{androidPort}/api/"   // Telefon: http://192.168.1.131:5000/api/
-            : $"https://localhost:{windowsPort}/api/";   // Windows: https://localhost:7274/api/
+        string baseUrl = !string.IsNullOrWhiteSpace(kayitliBaseUrl)
+            ? kayitliBaseUrl
+            : DeviceInfo.Platform == DevicePlatform.Android
+                ? "http://192.168.1.131:5000/api/"
+                : "https://localhost:7274/api/";
 
         _httpClient.BaseAddress = new Uri(baseUrl);
 
         // Zaman aşımı süresini biraz artıralım (Telefon ağda yavaş kalabilir)
         _httpClient.Timeout = TimeSpan.FromSeconds(30);
+    }
+
+    public static void ApiBaseUrlKaydet(string baseUrl)
+    {
+        if (string.IsNullOrWhiteSpace(baseUrl)) return;
+
+        string normalized = baseUrl.Trim();
+        if (!normalized.EndsWith('/')) normalized += "/";
+
+        Preferences.Default.Set(ApiBaseUrlPreferenceKey, normalized);
     }
 
     // --- KANTAR İŞLEMLERİ ---
