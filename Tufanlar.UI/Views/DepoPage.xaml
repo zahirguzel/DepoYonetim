@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tufanlar.UI.Views.DepoPage"
+             xmlns:vm="clr-namespace:Tufanlar.UI.ViewModels"
+             Title="Depo Onay Merkezi"
+             BackgroundColor="#F4F7F6">
+
+    <Grid RowDefinitions="Auto, *">
+        <Frame Grid.Row="0" BackgroundColor="#27ae60" Margin="10" HasShadow="True" CornerRadius="12" BorderColor="Transparent">
+            <VerticalStackLayout HorizontalOptions="Center">
+                <Label Text="DEPO SEVKİYAT VE KABUL LİSTESİ" 
+                       TextColor="White" 
+                       FontAttributes="Bold" 
+                       FontSize="18"/>
+                <Label Text="Onay bekleyen güncel araçlar" 
+                       TextColor="#E0E0E0" 
+                       FontSize="12" 
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding BekleyenAraclar}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,8" Padding="12" CornerRadius="15" BackgroundColor="White" HasShadow="True" BorderColor="#E0E6ED">
+                        <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
+
+                            <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                <Label Text="{Binding Plaka}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="20" 
+                                       TextColor="#2C3E50"/>
+
+                                <Label Text="{Binding UrunAdi}" 
+                                       TextColor="#E67E22" 
+                                       FontSize="15" 
+                                       FontAttributes="Bold"/>
+
+                                <Label Text="{Binding MusteriAdi}" 
+                                       TextColor="#7F8C8D" 
+                                       FontSize="13"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End">
+                                <HorizontalStackLayout Spacing="4" HorizontalOptions="End">
+                                    <Label Text="{Binding NetAgirlik}" 
+                                           TextColor="#27AE60" 
+                                           FontAttributes="Bold" 
+                                           FontSize="18"/>
+                                    <Label Text="KG" 
+                                           TextColor="#27AE60" 
+                                           FontSize="12" 
+                                           VerticalOptions="End" 
+                                           Margin="0,0,0,2"/>
+                                </HorizontalStackLayout>
+                                <Label Text="NET MİKTAR" TextColor="#BDC3C7" FontSize="10" HorizontalOptions="End"/>
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="2" 
+                                    Text="ONAYLA" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DepoViewModel}}, Path=OnaylaKomutu}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#3498DB"
+                                    TextColor="White"
+                                    HeightRequest="45"
+                                    WidthRequest="90"
+                                    CornerRadius="10"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center">
+                                <Button.Shadow>
+                                    <Shadow Brush="Black" Offset="0,2" Opacity="0.1"/>
+                                </Button.Shadow>
+                            </Button>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

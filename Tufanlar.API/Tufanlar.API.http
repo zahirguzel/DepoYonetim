@@ -1,0 +1,6 @@
+@Tufanlar.API_HostAddress = http://localhost:5001
+
+GET {{Tufanlar.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

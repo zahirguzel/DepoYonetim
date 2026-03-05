@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:Class="Tufanlar.UI.Views.BarkodTaraPage"
+             Title="Barkodu Okutun"
+             BackgroundColor="Black">
+
+    <Grid>
+        <zxing:CameraBarcodeReaderView x:Name="cameraView"
+                                       BarcodesDetected="CameraView_BarcodesDetected"
+                                       IsDetecting="True"
+                                       IsTorchOn="False"/>
+
+        <BoxView Color="Red" HeightRequest="2" VerticalOptions="Center" Opacity="0.6" Margin="50,0"/>
+
+        <Button Text="İptal / Vazgeç" 
+                Clicked="Button_Clicked"
+                VerticalOptions="End" 
+                Margin="20" 
+                BackgroundColor="#E74C3C" 
+                TextColor="White"
+                CornerRadius="10"/>
+    </Grid>
+</ContentPage>

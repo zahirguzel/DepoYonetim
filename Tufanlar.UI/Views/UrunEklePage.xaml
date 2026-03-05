@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tufanlar.UI.ViewModels"
+             x:DataType="vm:UrunEkleViewModel"
+             x:Class="Tufanlar.UI.Views.UrunEklePage"
+             Title="Ürün Detay Yönetimi"
+             BackgroundColor="#F4F7F6">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Frame CornerRadius="12" Padding="15" BorderColor="Transparent" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Ürün Adı" FontSize="12" TextColor="Gray"/>
+                    <Entry Text="{Binding Urun.Ad}" Placeholder="Örn: Mısır, Demir Profil" />
+
+                    <Label Text="Barkod (8 Hane)" FontSize="12" TextColor="Gray"/>
+                    <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="8">
+                        <Entry Grid.Column="0" 
+                               Text="{Binding Urun.Barkod}" 
+                               Keyboard="Numeric" 
+                               MaxLength="8" 
+                               Placeholder="00000000" 
+                               FontSize="16" 
+                               FontAttributes="Bold"/>
+
+                        <Button Grid.Column="1" Text="➕" Command="{Binding BarkodOlusturKomutu}" BackgroundColor="#27AE60" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25"/>
+                        <Button Grid.Column="2" Text="📷" Command="{Binding BarkodOkuKomutu}" BackgroundColor="#3498DB" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="12" Padding="15" BorderColor="Transparent" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Ürün Detayları" FontSize="14" FontAttributes="Bold" TextColor="#2C3E50"/>
+
+                    <Label Text="Kategori" FontSize="12" TextColor="Gray"/>
+
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+
+                        <Picker Grid.Column="0"
+                                Title="Kategori Seçiniz..."
+                                ItemsSource="{Binding Kategoriler}"
+                                ItemDisplayBinding="{Binding Ad}"
+                                SelectedItem="{Binding SecilenKategoriNesnesi}"
+                                BackgroundColor="White"
+                                TextColor="#2C3E50"/>
+
+                        <Button Grid.Column="1"
+                                Text="➕"
+                                Command="{Binding YeniKategoriEkleKomutu}"
+                                BackgroundColor="#E67E22"
+                                TextColor="White"
+                                WidthRequest="45"
+                                HeightRequest="45"
+                                CornerRadius="10"
+                                VerticalOptions="Center"/>
+                    </Grid>
+
+                    <Label Text="Açıklama / Notlar" FontSize="12" TextColor="Gray"/>
+                    <Editor Text="{Binding Urun.Aciklama}" 
+                            Placeholder="Ürün hakkında kısa bilgi..." 
+                            HeightRequest="80" 
+                            AutoSize="TextChanges"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Frame CornerRadius="12" Padding="15" BorderColor="Transparent" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Alış Fiyatı (₺)" FontSize="12" TextColor="Gray"/>
+                            <Entry Text="{Binding Urun.AlisFiyati}" Keyboard="Numeric" Placeholder="0.00" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Satış Fiyatı (₺)" FontSize="12" TextColor="Gray"/>
+                            <Entry Text="{Binding Urun.SatisFiyati}" Keyboard="Numeric" Placeholder="0.00" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Label Text="KDV Oranı (%)" FontSize="12" TextColor="Gray" Margin="0,5,0,0"/>
+                    <Picker ItemsSource="{Binding KdvOranlari}" SelectedItem="{Binding SecilenKdv}" Title="KDV Seçin" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="12" Padding="15" BorderColor="Transparent" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Depo &amp; Stok Durumu" FontSize="14" FontAttributes="Bold" TextColor="#2C3E50"/>
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Mevcut Stok" FontSize="12" TextColor="Gray"/>
+                            <Entry Text="{Binding Urun.StokMiktari}" Keyboard="Numeric" Placeholder="0" FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Kritik Seviye" FontSize="12" TextColor="Gray"/>
+                            <Entry Text="{Binding Urun.KritikStokSeviyesi}" Keyboard="Numeric" Placeholder="10" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="VERİLERİ SİSTEME İŞLE" 
+                    Command="{Binding KaydetKomutu}" 
+                    BackgroundColor="#2980B9" 
+                    TextColor="White" 
+                    HeightRequest="60" 
+                    CornerRadius="15" 
+                    FontAttributes="Bold"
+                    Margin="0,10,0,20">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Offset="0,4" Radius="5" Opacity="0.2"/>
+                </Button.Shadow>
+            </Button>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

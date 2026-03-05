@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tufanlar.UI.Views.LoginPage"
+             BackgroundColor="#f0f0f0">
+
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" WidthRequest="300">
+
+        <Label Text="DEPO YÖNETİM SİSTEMİ" 
+               FontSize="24" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center"
+               TextColor="#2c3e50"/>
+
+        <Entry Placeholder="Kullanıcı Adı" 
+               Text="{Binding KullaniciAdi}"
+               BackgroundColor="White" />
+
+        <Entry Placeholder="Şifre" 
+               IsPassword="True"
+               Text="{Binding Sifre}"
+               BackgroundColor="White" />
+
+        <Button Text="GİRİŞ YAP" 
+                Command="{Binding GirisYapKomutu}"
+                BackgroundColor="#2c3e50" 
+                TextColor="White"
+                CornerRadius="10"/>
+
+        <Label Text="{Binding Mesaj}" 
+               TextColor="Red" 
+               HorizontalOptions="Center"/>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tufanlar.UI.ViewModels" 
+             xmlns:Dtos="clr-namespace:Tufanlar.UI.Dtos;assembly=Tufanlar.UI" 
+             x:Class="Tufanlar.UI.Views.UrunListesiPage"
+             x:DataType="vm:UrunListesiViewModel"
+             Title="Ürün Portföyü"
+             BackgroundColor="#F4F7F6">
+
+    <Grid RowDefinitions="Auto, *">
+        <Frame Grid.Row="0" Margin="10" Padding="5" CornerRadius="12" HasShadow="True" BorderColor="Transparent">
+            <Grid ColumnDefinitions="*, Auto">
+                <SearchBar Grid.Column="0" Placeholder="Barkod veya isim ara..." Text="{Binding AramaMetni}" />
+                <Button Grid.Column="1" Text="➕" Command="{Binding YeniUrunEkleKomutu}" 
+                        BackgroundColor="#27AE60" TextColor="White" Margin="5" WidthRequest="50" CornerRadius="8"/>
+            </Grid>
+        </Frame>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Urunler}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="Dtos:UrunDto">
+                    <Frame Margin="0,5" Padding="10" CornerRadius="15" HasShadow="True" BorderColor="Transparent" BackgroundColor="White">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:UrunListesiViewModel}}, Path=DuzenleKomutu}"
+                                CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+
+                            <Frame Grid.Column="0" CornerRadius="10" Padding="0" HeightRequest="50" WidthRequest="50" BackgroundColor="#ECF0F1" HasShadow="False" VerticalOptions="Center">
+                                <Label Text="📦" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </Frame>
+
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Ad}" FontAttributes="Bold" FontSize="16" TextColor="#2C3E50"/>
+
+                                <HorizontalStackLayout Spacing="5">
+                                    <Label Text="{Binding Kategori.Ad, TargetNullValue='Genel'}" FontSize="12" TextColor="#E67E22" FontAttributes="Bold"/>
+                                    <Label Text="|" FontSize="12" TextColor="LightGray"/>
+                                    <Label Text="{Binding Barkod}" FontSize="12" TextColor="#95A5A6" />
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Spacing="10" Margin="0,5,0,0">
+                                    <Label Text="{Binding SatisFiyati, StringFormat='{0:N2} ₺'}" 
+                                           TextColor="#C0392B" 
+                                           FontAttributes="Bold" 
+                                           FontSize="16"/>
+
+                                    <Label Text="{Binding StokMiktari, StringFormat='(Stok: {0})'}" 
+                                           TextColor="#27AE60" 
+                                           FontSize="14"
+                                           VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="2" Text="✏️" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:UrunListesiViewModel}}, Path=DuzenleKomutu}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Transparent" 
+                                    TextColor="#3498DB" 
+                                    FontSize="20" 
+                                    VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

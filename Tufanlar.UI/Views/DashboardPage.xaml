@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tufanlar.UI.Views.DashboardPage"
+             Title="Ana Sayfa"
+             BackgroundColor="#f8f9fa">
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="5">
+            <Label Text="Hoş Geldiniz," FontSize="18" TextColor="Gray" />
+            <Label Text="{Binding AdSoyad}" FontSize="24" FontAttributes="Bold" TextColor="#2c3e50" />
+            <BoxView HeightRequest="1" Color="LightGray" Margin="0,10" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="15" VerticalOptions="Center">
+
+            <Button Text="YÖNETİCİ PANELİ" 
+                    Command="{Binding YoneticiPanelineGitKomutu}"
+                    HeightRequest="60"
+                    BackgroundColor="#3498db" 
+                    TextColor="White"
+                    CornerRadius="10"
+                    IsVisible="{Binding IsYonetici}" />
+
+            <Button Text="KANTAR İŞLEMLERİ" 
+                    Command="{Binding KantarSayfasinaGitKomutu}"
+                    HeightRequest="60"
+                    BackgroundColor="#e67e22" 
+                    TextColor="White"
+                    CornerRadius="10"
+                    IsVisible="{Binding IsKantar}" />
+
+            <Button Text="DEPO İŞLEMLERİ"
+                    Command="{Binding DepoSayfasinaGitKomutu}"
+                    HeightRequest="60"
+                    BackgroundColor="#27ae60" 
+                    TextColor="White"
+                    CornerRadius="10"
+                    IsVisible="{Binding IsDepo}" />
+        </VerticalStackLayout>
+
+        <Label Grid.Row="2" Text="Tufanlar Dış Ticaret © 2026" 
+               HorizontalOptions="Center" TextColor="Gray" FontSize="12" />
+    </Grid>
+</ContentPage>

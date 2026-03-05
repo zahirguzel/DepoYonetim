@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tufanlar.UI.Views.YonetimPaneliPage"
+             Title="Yönetim Paneli"
+             BackgroundColor="#F8F9FA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Sistem Yönetimi" FontSize="30" FontAttributes="Bold" TextColor="#2C3E50" />
+                <Label Text="Zak Yazılım Envanter Kontrol" TextColor="#95A5A6" FontSize="15" />
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*, *" RowDefinitions="180, 180" ColumnSpacing="15" RowSpacing="15">
+
+                <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#3498DB" CornerRadius="20" HasShadow="True" Padding="0" BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UrunlereGitKomutu}" />
+                    </Frame.GestureRecognizers>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text="📦" FontSize="50" HorizontalOptions="Center" />
+                        <Label Text="Ürün Listesi" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="#27AE60" CornerRadius="20" HasShadow="True" Padding="0" BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding StokTakibineGitKomutu}" />
+                    </Frame.GestureRecognizers>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text="📊" FontSize="50" HorizontalOptions="Center" />
+                        <Label Text="Stok Takibi" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="#E67E22" CornerRadius="20" HasShadow="True" Padding="0" BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MusterilereGitKomutu}" />
+                    </Frame.GestureRecognizers>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text="👥" FontSize="50" HorizontalOptions="Center" />
+                        <Label Text="Müşteriler" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="#8E44AD" CornerRadius="20" HasShadow="True" Padding="0" BorderColor="Transparent">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RaporlaraGitKomutu}" />
+                    </Frame.GestureRecognizers>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                        <Label Text="📑" FontSize="50" HorizontalOptions="Center" />
+                        <Label Text="Raporlar" TextColor="White" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

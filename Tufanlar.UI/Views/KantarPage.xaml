@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tufanlar.UI.Views.KantarPage"
+             Title="Kantar İşlemleri"
+             BackgroundColor="#F2F5F8">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <Frame BackgroundColor="White" CornerRadius="15" HasShadow="True" BorderColor="Transparent" Padding="20">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="TARTIM GİRİŞİ" 
+                           FontSize="22" 
+                           FontAttributes="Bold" 
+                           TextColor="#2C3E50" 
+                           HorizontalOptions="Center"/>
+                    <Label Text="Araç giriş ve çıkış işlemlerini buradan yapabilirsiniz." 
+                           FontSize="13" 
+                           TextColor="#7F8C8D" 
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+
+            <Frame Padding="10" CornerRadius="10" BackgroundColor="White" BorderColor="#E0E6ED" HasShadow="False" Margin="0,0,0,10">
+                <Grid ColumnDefinitions="*,*">
+                    <HorizontalStackLayout Grid.Column="0" Spacing="5" HorizontalOptions="Center">
+                        <RadioButton Content="Mal Kabul (Giriş)" 
+                         IsChecked="{Binding IsGiris}" 
+                         TextColor="#27ae60" 
+                         FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Grid.Column="1" Spacing="5" HorizontalOptions="Center">
+                        <RadioButton Content="Sevkiyat (Çıkış)" 
+                         IsChecked="{Binding IsCikis}" 
+                         TextColor="#c0392b" 
+                         FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+            
+
+            <Frame BackgroundColor="White" CornerRadius="15" HasShadow="True" BorderColor="Transparent" Padding="20">
+                <VerticalStackLayout Spacing="15">
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="ARAÇ PLAKASI" TextColor="#7F8C8D" FontSize="12" FontAttributes="Bold" Margin="2,0,0,0"/>
+                        <Frame Padding="0" CornerRadius="10" BackgroundColor="#F8F9FA" BorderColor="#E0E6ED" HasShadow="False" HeightRequest="50">
+                            <Entry Text="{Binding Plaka}" 
+                                   Placeholder="Örn: 31 ABC 123" 
+                                   TextColor="#2C3E50"
+                                   PlaceholderColor="#BDC3C7"
+                                   BackgroundColor="Transparent"
+                                   Margin="10,0"
+                                   FontSize="16"
+                                   TextTransform="Uppercase"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="ÜRÜN / MAL CİNSİ" TextColor="#7F8C8D" FontSize="12" FontAttributes="Bold" Margin="2,0,0,0"/>
+
+                        <Frame Padding="0" CornerRadius="10" BackgroundColor="#F8F9FA" BorderColor="#E0E6ED" HasShadow="False" HeightRequest="50">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UrunSecimSayfasiniAcKomutu}"/>
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*, Auto" Padding="15,0">
+                                <Label Text="{Binding SeciliUrun.Ad, TargetNullValue='Seçmek için dokunun...'}" 
+                   TextColor="{Binding SeciliUrun, Converter={StaticResource NullToGrayConverter}}" 
+                   VerticalOptions="Center"
+                   FontSize="16"/>
+
+                                <Label Grid.Column="1" Text="▼" TextColor="Gray" FontSize="10" VerticalOptions="Center"/>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="FİRMA / MÜŞTERİ ADI" TextColor="#7F8C8D" FontSize="12" FontAttributes="Bold" Margin="2,0,0,0"/>
+                        <Frame Padding="0" CornerRadius="10" BackgroundColor="#F8F9FA" BorderColor="#E0E6ED" HasShadow="False" HeightRequest="50">
+                            <Entry Text="{Binding MusteriAdi}" 
+                                   Placeholder="Firma Adı Giriniz" 
+                                   TextColor="#2C3E50"
+                                   PlaceholderColor="#BDC3C7"
+                                   BackgroundColor="Transparent"
+                                   Margin="10,0"
+                                   FontSize="16"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="#E0E6ED" Margin="0,10"/>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="BOŞ TARTIM (KG)" TextColor="#7F8C8D" FontSize="11" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Frame Padding="0" CornerRadius="10" BackgroundColor="#F8F9FA" BorderColor="#E0E6ED" HasShadow="False" HeightRequest="50">
+                                <Entry Text="{Binding IlkTartim}" 
+                                       Keyboard="Numeric" 
+                                       TextColor="#2C3E50"
+                                       BackgroundColor="Transparent"
+                                       FontSize="18" 
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalOptions="Center"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Dolu TARTIM (KG)" TextColor="#7F8C8D" FontSize="11" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Frame Padding="0" CornerRadius="10" BackgroundColor="#F8F9FA" BorderColor="#E0E6ED" HasShadow="False" HeightRequest="50">
+                                <Entry Text="{Binding IkinciTartim}" 
+                                       Keyboard="Numeric" 
+                                       TextColor="#2C3E50"
+                                       BackgroundColor="Transparent"
+                                       FontSize="18" 
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalOptions="Center"/>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Frame BackgroundColor="#27AE60" CornerRadius="10" Padding="15" HasShadow="False" BorderColor="Transparent" Margin="0,5">
+                        <VerticalStackLayout Spacing="0">
+                            <Label Text="NET AĞIRLIK" TextColor="White" Opacity="0.9" FontSize="12" HorizontalOptions="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding NetAgirlik, StringFormat='{0:N0} KG'}" TextColor="White" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Button Text="TARTIMI KAYDET" 
+                            Command="{Binding KaydetKomutu}"
+                            BackgroundColor="#E67E22" 
+                            TextColor="White" 
+                            CornerRadius="10" 
+                            HeightRequest="55"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Margin="0,10,0,0">
+                        <Button.Shadow>
+                            <Shadow Brush="Black" Offset="0,4" Radius="5" Opacity="0.1"/>
+                        </Button.Shadow>
+                    </Button>
+
+                    <Label Text="{Binding Mesaj}" TextColor="#E74C3C" FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
